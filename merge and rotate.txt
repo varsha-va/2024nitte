@@ -1,0 +1,80 @@
+1. MERGE TWO LISTS
+
+// Definition for singly-linked list.
+/*struct ListNode {
+    int val;
+    struct ListNode *next;
+};*/
+
+struct ListNode* mergeTwoLists(struct ListNode* list1, struct ListNode* list2) {
+    // Create a new dummy node to serve as the head of the merged list
+    struct ListNode* dummy = (struct ListNode*)malloc(sizeof(struct ListNode));
+    dummy->next = NULL;
+
+    // Initialize the current node to the dummy node
+    struct ListNode* current = dummy;
+
+    // Merge the two lists
+    while (list1!= NULL && list2!= NULL) {
+        if (list1->val <= list2->val) {
+            current->next = list1;
+            list1 = list1->next;
+        } else {
+            current->next = list2;
+            list2 = list2->next;
+        }
+        current = current->next;
+    }
+
+    // Append the remaining nodes of either list
+    if (list1!= NULL) {
+        current->next = list1;
+    } else {
+        current->next = list2;
+    }
+
+    // Return the head of the merged list (skip the dummy node)
+    return dummy->next;
+}
+
+
+2. ROTATE THE LIST
+
+// Definition for singly-linked list.
+/*struct ListNode {
+    int val;
+    struct ListNode *next;
+};*/
+
+struct ListNode* rotateRight(struct ListNode* head, int k) {
+    if (head == NULL || head->next == NULL || k == 0) {
+        return head;
+    }
+
+    struct ListNode* current = head;
+    int length = 1;
+
+    // Calculate the length of the linked list
+    while (current->next!= NULL) {
+        current = current->next;
+        length++;
+    }
+
+    // Connect the list to form a ring
+    current->next = head;
+
+    // Calculate the new tail node
+    int newTailIndex = length - k % length;
+    struct ListNode* newTail = head;
+    for (int i = 0; i < newTailIndex - 1; i++) {
+        newTail = newTail->next;
+    }
+
+    // Calculate the new head node
+    struct ListNode* newHead = newTail->next;
+
+    // Break the ring at the new tail node
+    newTail->next = NULL;
+
+    return newHead;
+}
