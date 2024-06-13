@@ -1,0 +1,285 @@
+1. Decision Making - Online shopping
+
+#include <stdio.h>
+
+int main() {
+    int fkPrice, fkDiscount, fkService;
+    int sdPrice, sdDiscount, sdService;
+    int amazonPrice, amazonDiscount, amazonService;
+   
+    scanf("%d", &fkPrice);
+    scanf("%d", &fkDiscount);
+    scanf("%d", &fkService);
+   
+    scanf("%d", &sdPrice);
+    scanf("%d", &sdDiscount);
+    scanf("%d", &sdService);
+   
+    scanf("%d", &amazonPrice);
+    scanf("%d", &amazonDiscount);
+    scanf("%d", &amazonService);
+   
+    int netFk = fkPrice - ((fkPrice * fkDiscount) / 100) + fkService;
+    int netSd = sdPrice - ((sdPrice * sdDiscount) / 100) + sdService;
+    int netAz = amazonPrice - ((amazonPrice * amazonDiscount) / 100) + amazonService;
+   
+    printf("In Flipkart: Rs.%d\n", netFk);
+    printf("In Snapdeal: Rs.%d\n", netSd);
+    printf("In Amazon: Rs.%d\n", netAz);
+   
+    if (netFk <= netSd && netFk <= netAz) {
+        printf("Choose Flipkart");
+    } else if (netSd <= netFk && netSd <= netAz) {
+        printf("Choose Snapdeal");
+    } else {
+        printf("Choose Amazon");
+    }
+   
+    return 0;
+}
+
+2. Decision Making - Hotel Tariff Calculator
+
+#include <stdio.h>
+
+int main() {
+    int month, rent, days;
+    float payment, high = 0, totalAmount = 0;
+
+    scanf("%d %d %d", &month, &rent, &days);
+
+    // if month and days are in invalid range
+    if (month < 1 || month > 12 || days < 1 || days > 31) {
+        printf("Invalid Input");
+    } else {
+        // 20% more if they took hotel in respective months
+        if (month == 4 || month == 5 || month == 6 || month == 11 || month == 12) {
+            high = 20;
+        }
+        payment = (days * rent);
+        totalAmount = payment + (payment * high) / 100;
+        printf("%.0f", totalAmount);
+    }
+
+    return 0;
+}
+
+3. Decision Making - Gift for Birthday
+
+#include <stdio.h>
+
+int main() {
+    int year;
+    scanf("%d", &year);
+    
+    if ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0)) {
+        printf("%d is a leap year", year);
+    } else {
+        printf("%d is not a leap year", year);
+    }
+    
+    return 0;
+}
+
+4. Decision Making - Trendy number
+
+#include <stdio.h>
+
+int main() {
+    int number, mid = 0;
+    scanf("%d", &number);
+    
+    mid = (number % 100);
+    mid = mid / 10;
+    
+    if (number >= 100 && number <= 999) {
+        if (mid % 3 == 0) {
+            printf("Trendy Number");
+        } else {
+            printf("Not a Trendy Number");
+        }
+    } else {
+        printf("Invalid Number");
+    }
+
+    return 0;
+}
+
+5. Decision Making - Time Sheet
+
+#include <stdio.h>
+
+int main() {
+    int hours[7];
+    for(int i = 0; i < 7; i++) {
+        scanf("%d", &hours[i]);
+    }
+
+    int salary = 0;
+
+    // Sunday
+    salary += hours[0] * 150;
+
+    // Monday to Friday
+    for(int i = 1; i <= 5; i++) {
+        if (hours[i] <= 8) {
+            salary += hours[i] * 100;
+        } else {
+            salary += (8 * 100) + ((hours[i] - 8) * 115);
+        }
+    }
+
+    // Saturday
+    salary += hours[6] * 125;
+
+    printf("%d\n", salary);
+
+    return 0;
+}
+
+6. Decision Making - Number of Days
+
+#include <stdio.h>
+#include <stdbool.h>
+
+bool isLeapYear(int year) {
+    if ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0) {
+        return true;
+    }
+    return false;
+}
+
+int main() {
+    int year, month, days;
+    scanf("%d %d", &year, &month);
+   
+    if (year < 1900 || year > 9999 || month < 1 || month > 12) {
+        printf("0");
+    } else {
+        if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12) {
+            days = 31;
+        } else if (month == 4 || month == 6 || month == 9 || month == 11) {
+            days = 30;
+        } else {
+            if (isLeapYear(year)) {
+                days = 29;
+            } else {
+                days = 28;
+            }
+        }
+        printf("%d Days", days);
+    }
+   
+    return 0;
+}
+
+7. Decision Making - Scholarship
+
+#include <stdio.h>
+
+int main() {
+    int age, year, income, standing;
+    float marksPercentage, attendancePercentage;
+
+    scanf("%d %d %d %d %f %f", &age, &year, &income, &standing, &marksPercentage, &attendancePercentage);
+
+    if (year >= 2021 && standing <= 2 && income <= 200000 && (age >= 18 && age < 21) && marksPercentage >= 60 && attendancePercentage >= 80) {
+        printf("Eligible");
+    } else if (year >= 2021 && standing > 2 && income <= 250000 && (age >= 18 && age < 21) && marksPercentage >= 80 && attendancePercentage >= 90) {
+        printf("Partially Eligible");
+    } else {
+        printf("Not Eligible");
+    }
+
+    return 0;
+}
+
+8. Decision Making - Mango tree
+
+#include <stdio.h>
+
+int main() {
+    int rows, columns, treeNumber;
+    
+    // Read input values
+    scanf("%d %d %d", &rows, &columns, &treeNumber);
+    
+    // Calculate the number of trees in the 1st row
+    int firstRowEnd = columns;
+    
+    // Check if the tree is in the first row
+    if (treeNumber <= firstRowEnd) {
+        printf("Yes");
+        return 0;
+    }
+    
+    // Check if the tree is in the first column or last column
+    for (int i = 1; i <= rows; i++) {
+        if (treeNumber == (i - 1) * columns + 1 || treeNumber == i * columns) {
+            printf("Yes");
+            return 0;
+        }
+    }
+    
+    // If not in any of the above conditions, it's not a mango tree
+    printf("No");
+    
+    return 0;
+}
+
+9. Decision Making - Cricket
+
+#include <stdio.h>
+
+int main() {
+    int totalBalls, totalRuns, runsScored, ballsBowled;
+    
+    // Read input values
+    scanf("%d %d %d %d", &totalBalls, &totalRuns, &runsScored, &ballsBowled);
+    
+    // Calculate total overs and overs finished
+    float totalOvers = totalBalls / 6.0;
+    float oversFinished = ballsBowled / 6 + (ballsBowled % 6) / 10.0;
+    
+    // Calculate current run rate and required run rate
+    float currentRunRate = runsScored / oversFinished;
+    float requiredRunRate = (float)totalRuns / totalOvers;
+    
+    // Print the results
+    printf("%.0f\n", totalOvers); // Total overs
+    printf("%.1f\n", oversFinished); // Overs finished
+    printf("%.1f\n", currentRunRate); // Current run rate
+    printf("%.1f\n", requiredRunRate); // Required run rate
+    
+    // Check eligibility to win
+    if (currentRunRate >= requiredRunRate) {
+        printf("Eligible to Win");
+    } else {
+        printf("Not Eligible to Win");
+    }
+    
+    return 0;
+}
+
+10. Control Statements - Multiplication Table
+
+#include <stdio.h>
+
+int main() {
+    int n, m;
+    
+    // Prompt for and read the input values
+    printf("Enter n\n");
+    scanf("%d", &n);
+    printf("Enter m\n");
+    scanf("%d", &m);
+    
+    // Print the multiplication table
+    printf("The multiplication table of %d is\n", n);
+    for (int i = 1; i <= m; i++) {
+        printf("%d*%d=%d\n", i, n, i * n);
+    }
+    
+    return 0;
+}
+
